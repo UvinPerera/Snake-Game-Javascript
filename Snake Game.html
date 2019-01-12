@@ -1,0 +1,145 @@
+<canvas id ="gc" width="418" height="418"></canvas>
+<title>Game</title>
+<body>
+
+<script>
+    alert('Welcome to the game!');
+window.onload=function()
+{
+    canv = document.getElementById("gc");
+    ctx = canv.getContext("2d");
+    document.addEventListener("keydown",keyPush);
+    setInterval(game,1000/15);
+}
+var px=200;
+var py=200;
+var xv=0;
+var yv=0;
+var ax=30;
+var ay=50;
+var snakeLength=18;
+var score =0;
+var highScore=0;
+var xSpeed =5;
+var ySpeed=5;
+var positionX =[];
+var positionY =[];
+
+function game()
+{
+    
+    px+=xv;
+    py+=yv;
+
+    ctx.fillStyle ="black";
+    ctx.fillRect(0,0,canv.width,canv.height);
+
+  ctx.fillStyle ="yellow";
+    ctx.fillRect(px,py,snakeLength,18);
+
+    ctx.fillStyle="red";
+    ctx.fillRect(ax,ay,18,18);
+
+    if(py==0 || py==400)
+    {
+        yv=0;
+        px=200;
+        py=200;
+        alert("Game over!!!\nYour score:"+score+"\nHigh Score:"+highScore);
+        score=0;
+        
+    }
+    if(px==0 || px==400)
+    {
+        xv=0;
+        px=200;
+        py=200;
+        alert("Game over!!!\nYour score:"+score+"\nHigh Score:"+highScore);
+        score=0;
+        
+    } 
+
+
+
+    if(score>highScore)
+    {
+        highScore=score;
+    }
+
+    if(px==ax && py==ay)
+    {
+        ax=(ax*2)%390;
+        ay=(ay*ax)%390;
+        score++;
+        
+    }
+
+    //positonTrack(px,py);
+
+  /*  if(score==1)
+    {
+        ctx.fillStyle="lime";
+        ctx.fillRect(,18,18)
+    }*/
+    
+
+
+
+
+
+     for(i=0;i<score;i++){
+        ctx.fillStyle="lime";
+
+
+        if(yv==5)
+        ctx.fillRect(px,py-20*(i+1),18,18);
+        if(yv==-5)
+        ctx.fillRect(px,py+20*(i+1),18,18);
+       if(xv==5)
+        ctx.fillRect(px-20*(i+1),py,18,18);
+        if(xv==-5)
+        ctx.fillRect(px+20*(i+1),py,18,18)
+        
+    }
+
+  
+
+
+}
+
+function keyPush(evt)
+{
+    switch(evt.keyCode)
+    {
+        case 37:
+        xv=-1*xSpeed;yv=0;
+        break;
+        case 38:
+        xv=0;yv=-1*ySpeed;
+        break;
+        case 39:
+        xv=xSpeed;yv=0;
+        break;
+        case 40:
+        xv=0;yv=ySpeed;
+        break;
+    }
+}
+
+function positonTrack(posiX,posiY)
+{
+    
+    console.log('x '+posiX+'  y '+posiY);
+    for(i=0;i<positionX.length;i++)
+    {
+        positionX[i]=posiX;
+        positionY[i]=posiY;
+    }
+}
+
+
+</script>
+
+
+
+</body>
